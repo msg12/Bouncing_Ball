@@ -1,100 +1,65 @@
 var canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+var totalx=window.innerWidth;
+var totaly=window.innerHeight;
+
 console.log(canvas);
-// var totalx = window.innerWidth;
-// var totaly = window.innerHeight;
+var c=canvas.getContext('2d');
 
-// var minx = totalx / 4;
-// var miny = totaly / 4;
+var inix=500;
+var iniy=30;
+var radius=30;
 
-// var maxx = 3 * totalx / 4;
-// var maxy = 3 * totaly / 4;
+var currx=inix;
+var curry=iniy;
 
+c.strokeStyle='red';
+c.arc(currx, curry, radius, 0, Math.PI * 2, false);
+c.stroke();
 
-
-var c = canvas.getContext('2d');
-
-// c.fillStyle = 'rgba(0,255,0,1.0)';
-// c.fillRect(100, 100, 100, 100);
-
-// c.beginPath();
-// c.moveTo(50,0);
-// c.lineTo(300,100);
-// c.strokeStyle='rgb(0,255,0)';
-// c.stroke();
-var inix = 500;
-var iniy = 100;
-var radius = 30;
-
-var planky = 700;
-var planksz = 500;
 c.fillStyle = 'black';
-
-// console.log("qfe");
-// c.beginPath();
-// c.moveTo(150,500);
-// c.lineTo(650,700);
-// c.stroke();
-
-
-c.fillRect(170, 500, 800, 20);
+c.fillRect(150, 480, 800, 20);
 c.stroke();
 
+var plankx=150;
+var planky=480;
+var speed=0;
+var acc=-0.051;
+var maxy=iniy;
 
+function animate(){
 
-var totalx = canvas.width;
-var totaly = canvas.height;
-console.log(totalx);
-console.log(totaly);
-function playPauseClick() {
-    console.log(event.clientX);
-    console.log(event.clientY);
-}
-
-c.beginPath();
-c.arc(inix, iniy, radius, 0, Math.PI * 2, false);
-c.strokeStyle = 'red';
-c.stroke();
-
-var yline = 480;
-
-canvas.addEventListener("click", playPauseClick);
-var currx = inix;
-var curry = iniy;
-var dy = 3;
-var maxy = iniy;
-
-function animate() {
     requestAnimationFrame(animate);
-    c.clearRect(0, 0, 1058, 669);
+    c.clearRect(0,0,1058,669);
 
-    c.beginPath();
-    c.arc(currx, curry, radius, 0, Math.PI * 2, false);
-    c.stroke();
-
-    if (maxy < ((yline - radius - radius))) {
-var dyy=-dy;
-if(dy>0)
-dyy=dy;
-        curry += (dy*dyy);
-
-        if (curry > yline - radius) {
-            dy = -dy;
-            maxy *= (1.2);
-        }
-        if (curry < maxy)
-            dy = -dy;
-
-
-    }
     c.fillStyle = 'black';
-
     c.fillRect(150, 480, 800, 20);
     c.stroke();
+        
+    
+    
+    
+    c.beginPath();
+    c.strokeStyle='red';
+    c.arc(currx,curry,radius,0,Math.PI*2,false);
+    curry+=(speed);
+    speed-=acc;
+    // acc=1;
+    // if(speed<0) meet=-1;
+    if(curry>planky-radius){
+    speed=-(0.86*speed);
+    // acc=-acc;
 
+    // maxy+=10;    // maxy*=1.2;
+    }
+
+    else if(curry<maxy){
+    speed=-(speed*0.86);
+    // acc=-acc;
+    }
+    // else
+   
 
 }
 animate();
-
-
